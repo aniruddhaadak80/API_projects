@@ -1,0 +1,47 @@
+h1 {
+  color: rgb(255, 0, 0);
+  background-color: aqua;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  border: 2px solid red;
+  border-radius: 10px;
+  overflow: auto;
+}
+
+h2 {
+  color: chartreuse;
+  font-family: sans-serif;
+}
+
+h3 {
+  color: aqua;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* jokes  div */
+.joke-div {
+  text-align: center;
+  background-color: blueviolet;
+  border: 3px solid rgb(255, 0, 170);
+  padding: 20px;
+  margin: 50px;
+  border-radius: 20px;
+
+}
+
+/* jokes button */
+#joke-btn {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 20px;
+  color: rgb(0, 0, 255);
+  background-color: rgb(104, 255, 11);
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 4px 4px 5px red, 6px 6px 6px;
+  overflow: auto;
+}
+
+#joke-btn:hover {
+  font-size: 25px;
+  background-color: rgb(229, 255, 0);
+  overflow: hidden;
+}
