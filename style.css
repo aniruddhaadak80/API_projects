@@ -4,6 +4,7 @@
   margin: 3px;
   padding: 4px;
   border-radius: 5px;
+  user-select: none;
 }
 
 hr {
