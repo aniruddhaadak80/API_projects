@@ -1,5 +1,3 @@
-
-
 const inputYear = document.getElementById("inputYear");
 const submitBtn = document.getElementById("submitBtn");
 const result = document.getElementById("result");
@@ -24,6 +22,6 @@ submitBtn.addEventListener("click", () => {
     getYear(year);
   } else {
     // If it's not a valid number, show an error
-    result.innerHTML = `${inputYear.value} is not a valid year!`;
+    result.innerHTML = ` " ${inputYear.value} " is not a valid year!`;
   }
 });
