@@ -1,5 +1,6 @@
-*{
+* {
   user-select: none;
+  text-align: center;
 }
 h1 {
   color: rgb(255, 0, 0);
@@ -28,7 +29,6 @@ h3 {
   padding: 20px;
   margin: 50px;
   border-radius: 20px;
-
 }
 
 /* jokes button */
@@ -48,3 +48,15 @@ h3 {
   background-color: rgb(229, 255, 0);
   overflow: hidden;
 }
+
+button {
+  color: aquamarine;
+  background-color: red;
+  padding: 6px;
+  margin: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+
