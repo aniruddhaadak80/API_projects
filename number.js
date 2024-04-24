@@ -26,7 +26,7 @@ const userInputBtn = document.getElementById("userInputBtn");
 
 const userInput = document.getElementById("userInput");
 
-const displayUserInput  = document.getElementById("dis-input-facts");
+const displayUserInput = document.getElementById("dis-input-facts");
 
 let genetrateNumUsingInput = async () => {
   // user input number
@@ -36,11 +36,10 @@ let genetrateNumUsingInput = async () => {
 
   let result = await apiUrl.json();
 
-  // display input-num facts in page 
-  displayUserInput.innerHTML= result.text;
+  // display input-num facts in page
+  displayUserInput.innerHTML = result.text;
 
   console.table(result.text);
 };
 
-userInputBtn.addEventListener("click",genetrateNumUsingInput);
-
+userInputBtn.addEventListener("click", genetrateNumUsingInput);
