@@ -12,3 +12,16 @@ hr {
   height: 3px;
 }
 
+input {
+  cursor: text;
+}
+
+button {
+  color: aliceblue;
+  background-color: rgb(132, 0, 255);
+  border-radius: 5px;
+  border: 2px solid red;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  margin: 2px;
+  padding: 6px;
+}
