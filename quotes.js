@@ -1,3 +1,5 @@
+
+// *******  for random quotes with author name ***** 
 const generateBtn = document.getElementById("generateQuote");
 
 const displayQuotes = document.getElementById("displayQuotes");
@@ -18,4 +20,6 @@ let getRandonQuote = async () => {
 
 generateBtn.addEventListener("click", getRandonQuote);
 
-getRandonQuote();
+
+
+
