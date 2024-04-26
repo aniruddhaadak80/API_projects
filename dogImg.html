@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dogs Image</title>
+    <!-- style the page -->
+    <style>
+      * {
+        text-align: center;
+        padding: 4px;
+        margin: 4px;
+        border-radius: 10px;
+        overflow: auto;
+      }
+
+      h1 {
+        color: blue;
+      }
+
+      img {
+        height: 500px;
+        width: 600px;
+        border: 3px solid red;
+      }
+
+      button {
+        margin-top: 3px;
+        padding: 3px;
+        color: aqua;
+        background-color: red;
+        height: 50px;
+        width: 150px;
+        cursor: pointer;
+        align-items: center;
+        font-size: 23px;
+      }
+
+      button:hover {
+        color: rgb(255, 0, 0);
+        background-color: aqua;
+        height: 55px;
+        width: 170px;
+      }
+    </style>
+  </head>
+  <body>
+    <a href="./index.html">
+      <button>Home</button>
+    </a>
+
+    <h1>Get Random Dog 🐶 Pics ⬇️</h1>
+    <button id="get-random-dog-btn">Get Dog Pic</button>
+    <br />
+    <img
+      id="dog-img"
+      src="https://image.lexica.art/full_webp/0c0b2d8d-583e-4663-87eb-702815764816"
+      alt="Cute Dog Pic"
+    />
+
+    <!-- javascript code start -->
+    <script>
+      //select all necessary elements
+      const getDogBtn = document.getElementById("get-random-dog-btn");
+      const dogImg = document.getElementById("dog-img");
+
+      //function to generate random dog image
+      let generateDogImage = async () => {
+        let apiurl = await fetch("https://random.dog/woof.json");
+        let result = await apiurl.json();
+
+        //display image inside img tag
+        dogImg.src = result.url;
+
+        // console.log(result);
+      };
+
+      getDogBtn.addEventListener("click", generateDogImage);
+      //generateDogImage();
+    </script>
+  </body>
+</html>
