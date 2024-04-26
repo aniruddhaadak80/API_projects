@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Random Color</title>
+    <style>
+      * {
+        text-align: center;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <h1 id="random-color-h1">Get Random Color</h1>
+    <br />
+    <button id="random-color-Btn">Get Random Color</button>
+
+    <!-- Script i.e javascript Source  -->
+    <script>
+      //select all elements by ID
+      const randomColorH1 = document.getElementById("random-color-h1");
+      const randomColorBtn = document.getElementById("random-color-Btn");
+
+      let generateRandomColor = async () => {
+        let apiUrl = await fetch("https://x-colors.yurace.pro/api/random");
+        let result = await apiUrl.json();
+
+        //Apply Random color on H1 tag
+        randomColorH1.style.color = result.rgb;
+
+        //Apply Random color on button
+        randomColorBtn.style.color = result.rgb;
+
+        // console.log(result);
+      };
+      setInterval(generateRandomColor, 500);
+      generateRandomColor();
+    </script>
+  </body>
+</html>

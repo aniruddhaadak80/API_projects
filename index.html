@@ -16,10 +16,19 @@
   <body>
     <!-- links for different page -->
     <header>
-      <a href="./jokes.html"><button>Jokes</button></a>
-      <a href="./advice.html"><button>Advice</button></a>
-      <a href="./qrcode.html"><button>QR code</button></a>
-      <a href="./dogImg.html"><button>Dog Pic</button></a>
+      <a href="./jokes.html"><button class="color-chng-btns">Jokes</button></a>
+
+      <a href="./advice.html"
+        ><button class="color-chng-btns">Advice</button></a
+      >
+
+      <a href="./qrcode.html"
+        ><button class="color-chng-btns">QR code</button></a
+      >
+
+      <a href="./dogImg.html"
+        ><button class="color-chng-btns">Dog Pic</button></a
+      >
     </header>
     <h1 class="bg bg-danger m-3 p-3 text-center">
       ⬇️Projects for Logic Building ⬇️
@@ -112,7 +121,9 @@
     <!-- boredApi to remove boreness -->
     <div id="boredApi" class="bg-success-subtle p-3 m-3">
       <h2 class="bg-danger-subtle">5➡️ Getting Bored 🥱 ,Try It Out ↙️</h2>
-      <button id="boredBtn" type="button" class="btn btn-warning btn-lg m-2">Activity</button>
+      <button id="boredBtn" type="button" class="btn btn-warning btn-lg m-2">
+        Activity
+      </button>
       <div
         id="displayActivities"
         class="bg-info-subtle text-warning fs-3 p-3 m-2"
@@ -121,7 +132,32 @@
       </div>
     </div>
 
-    <!-- script tag sources  -->
+    <!-- Script to generate random color in all Buttons with  class="color-chng-btns"-->
+    <script>
+      const colorChangeBtns = document.querySelectorAll(".color-chng-btns");
+
+      let generateRandomColor = async () => {
+        // fetch URL from API server
+        let apiUrl = await fetch("https://x-colors.yurace.pro/api/random");
+
+        let result = await apiUrl.json();
+
+        /*for testing purpose
+        console.log(result.rgb);
+        */
+
+        //change color of all Buttons through iteration
+        colorChangeBtns.forEach((btn) => {
+          btn.style.color = result.rgb;
+        });
+      };
+
+      //change color within  500ms i.e 1/2 seconds
+      setInterval(generateRandomColor, 500);
+      //generateRandomColor();
+    </script>
+
+    <!-- External script tag sources  -->
     <script src="./leapYear.js"></script>
     <script src="./quotes.js"></script>
     <script src="./number.js"></script>
