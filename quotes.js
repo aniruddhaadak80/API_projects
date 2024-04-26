@@ -1,5 +1,4 @@
-
-// *******  for random quotes with author name ***** 
+// *******  for random quotes with author name *****
 const generateBtn = document.getElementById("generateQuote");
 
 const displayQuotes = document.getElementById("displayQuotes");
@@ -20,6 +19,5 @@ let getRandonQuote = async () => {
 
 generateBtn.addEventListener("click", getRandonQuote);
 
-
-
-
+// generate Quotes after every 9 seconds
+setInterval(getRandonQuote, 9000);

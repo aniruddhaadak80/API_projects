@@ -12,6 +12,7 @@
         margin: 4px;
         border-radius: 10px;
         overflow: auto;
+        user-select: none;
       }
 
       h1 {
@@ -49,8 +50,8 @@
       <button>Home</button>
     </a>
 
-    <h1>Get Random Dog 🐶 Pics ⬇️</h1>
-    <button id="get-random-dog-btn">Get Dog Pic</button>
+    <h1>Get Random Dogs 🐶 Picture ⬇️</h1>
+    <button id="get-random-dog-btn">Get Dogs Pic</button>
     <br />
     <img
       id="dog-img"
@@ -75,7 +76,12 @@
         // console.log(result);
       };
 
+      //generate A dog image when User click on button
       getDogBtn.addEventListener("click", generateDogImage);
+
+      //Random Dog Image after Specific Interval(here 9 seconds)
+      setInterval(generateDogImage,9000);
+
       //generateDogImage();
     </script>
   </body>
