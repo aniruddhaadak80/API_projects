@@ -6,7 +6,6 @@
   border-radius: 5px;
   user-select: none;
   overflow: auto;
-  
 }
 
 hr {
@@ -19,7 +18,7 @@ input {
 }
 
 button {
-  font-size:larger;
+  font-size: larger;
   color: aliceblue;
   background-color: rgb(0, 0, 0);
   border-radius: 10px;
@@ -27,4 +26,12 @@ button {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   margin: 4px;
   padding: 6px;
+}
+
+#home_logo {
+  margin: 0%;
+  height: 100px;
+  width: 100px;
+  border: 3px solid rgb(41, 214, 41);
+  border-radius: 50%;
 }
