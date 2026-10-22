@@ -5,9 +5,9 @@ const result = document.getElementById("result");
 // Define the function to check for leap year
 let getYear = (year) => {
   if (year % 400 === 0 || (year % 4 === 0 && year % 100 !== 0)) {
-    result.innerHTML = `${year} is a leap year .`;
+    result.textContent = `${year} is a leap year .`;
   } else {
-    result.innerHTML = `${year} is not a leap year .`;
+    result.textContent = `${year} is not a leap year .`;
   }
 };
 
@@ -21,7 +21,9 @@ submitBtn.addEventListener("click", () => {
     // If it's a valid number, check if it's a leap year
     getYear(year);
   } else {
-    // If it's not a valid number, show an error
-    result.innerHTML = ` " ${inputYear.value} " is not a valid year!`;
+    // If it's not a valid number, show an error.
+    // textContent (not innerHTML) so the typed value is shown as plain text
+    // instead of being parsed as HTML.
+    result.textContent = ` " ${inputYear.value} " is not a valid year!`;
   }
 });
