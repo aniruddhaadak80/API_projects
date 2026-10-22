@@ -64,11 +64,12 @@
 
       //generator function to create QR code
       let generateQrfunc = async () => {
-        let userval = userInput.value;
+        // encode the typed text before putting it in the query string
+        let userval = encodeURIComponent(userInput.value.trim());
 
         if (userval.length > 0) {
           let apiUrl =
-            await `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userval}`;
+            `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userval}`;
           //display the qr image
           displayQr.src = apiUrl;
         }
