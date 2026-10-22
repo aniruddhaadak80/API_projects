@@ -7,10 +7,11 @@ import {
 env.allowLocalModels = false; // weights come from the Hugging Face Hub once, then from the browser cache
 
 export const MODELS = {
-  // On WASM the 4-bit export needs GatherBlockQuantized, which ONNX Runtime Web only implements on WebGPU,
-  // so the CPU path uses the single-file 8-bit export (model_uint8.onnx, ~1 GB, no external data).
-  'gemma-3-1b': { id: 'onnx-community/gemma-3-1b-it-ONNX', kind: 'pipeline', wasmDtype: 'uint8',
-    wasmOptions: { use_external_data_format: false, session_options: { graphOptimizationLevel: 'disabled' } } },
+  // WASM can't run the 4-bit export (GatherBlockQuantized is WebGPU-only in ONNX Runtime Web; the 270M "quantized"
+  // export uses it too), so the CPU path uses the single-file 8-bit 1B export (model_uint8.onnx, ~1 GB).
+  'gemma-3-1b': { id: 'onnx-community/gemma-3-1b-it-ONNX', kind: 'pipeline',
+    wasm: { id: 'onnx-community/gemma-3-1b-it-ONNX', dtype: 'uint8',
+      options: { use_external_data_format: false, session_options: { graphOptimizationLevel: 'disabled' } } } },
   'gemma-4-e2b': { id: 'onnx-community/gemma-4-E2B-it-ONNX', kind: 'gemma4', wasmDtype: 'q4' },
 };
 
@@ -20,9 +21,11 @@ let loaded = null; // { key, device, run }
 async function load(key, device, f16 = true) {
   if (loaded && loaded.key === key && loaded.device === device) return loaded;
   const spec = MODELS[key];
-  // q4f16 on WebGPU; on WASM the 4-bit GatherBlockQuantized op is missing, so use the 8-bit export there.
+  // q4f16 on WebGPU; on WASM see MODELS above.
   // GPUs without shader-f16 get the same 4-bit weights with fp32 maths.
-  const dtype = OVERRIDE_DTYPE || (device === 'webgpu' ? (f16 ? 'q4f16' : 'q4') : spec.wasmDtype);
+  const cpu = device !== 'webgpu' && spec.wasm && !OVERRIDE_DTYPE ? spec.wasm : null;
+  const modelId = cpu ? cpu.id : spec.id;
+  const dtype = OVERRIDE_DTYPE || (device === 'webgpu' ? (f16 ? 'q4f16' : 'q4') : (cpu ? cpu.dtype : 'q4'));
   const files = {};
   const progress_callback = (p) => {
     if (p.status === 'progress' && p.total) {
@@ -34,8 +37,7 @@ async function load(key, device, f16 = true) {
   const t0 = performance.now();
   let run;
   if (spec.kind === 'pipeline') {
-    const extra = device === 'wasm' && spec.wasmOptions && !OVERRIDE_DTYPE ? spec.wasmOptions : {};
-    const gen = await pipeline('text-generation', spec.id, { dtype, device, progress_callback, ...extra });
+    const gen = await pipeline('text-generation', modelId, { dtype, device, progress_callback, ...(cpu ? cpu.options : {}) });
     run = async (messages, max_new_tokens, onToken) => {
       const streamer = new TextStreamer(gen.tokenizer, { skip_prompt: true, skip_special_tokens: true, callback_function: onToken });
       const out = await gen(messages, { max_new_tokens, do_sample: false, repetition_penalty: 1.05, streamer });
@@ -53,7 +55,7 @@ async function load(key, device, f16 = true) {
     };
   }
   loaded = { key, device, run };
-  postMessage({ type: 'loaded', key, device, dtype, ms: Math.round(performance.now() - t0) });
+  postMessage({ type: 'loaded', key, model: modelId.split('/')[1], device, dtype, ms: Math.round(performance.now() - t0) });
   return loaded;
 }
 
