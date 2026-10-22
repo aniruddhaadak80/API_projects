@@ -2,6 +2,8 @@
 
 **Your group chat, in two lines.** Drop a WhatsApp export and lie back: Hammock skips the good-mornings, finds the messages that actually need you, and Gemma writes the catch-up and your replies **inside your browser tab**. No server, no account, no API key. After the first visit it works with the Wi-Fi off.
 
+**DEV write-up:** https://dev.to/aniruddhaadak/hammock-my-group-chat-in-two-lines-read-by-gemma-inside-a-browser-tab-c31
+
 **Live demo:** https://aniruddhaadak80.github.io/API_projects/hammock/ (Chrome or Edge with WebGPU for the good model)
 
 ![Hammock cover](assets/cover.png)
