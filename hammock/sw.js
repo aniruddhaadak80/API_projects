@@ -1,7 +1,7 @@
 // Tiny service worker so Hammock opens with the Wi-Fi off after the first visit.
 // App shell + the Transformers.js / ONNX Runtime files from jsDelivr are cached here.
 // Gemma's weights are cached separately by Transformers.js (Cache API, "transformers-cache").
-const CACHE = 'hammock-v1';
+const CACHE = 'hammock-v2';
 const SHELL = ['./', './index.html', './src/style.css', './src/app.js', './src/core.js', './src/worker.js', './assets/hero.jpg',
   './samples/family-group.txt', './samples/hackathon-team.txt', './assets/favicon.svg'];
 
