@@ -93,3 +93,19 @@ test('cleaners strip model chatter', () => {
   assert.equal(H.cleanReply('Okay, here’s a reply: “Will do, back to you Saturday.”'), 'Will do, back to you Saturday.');
   assert.equal(H.cleanTodo('To-do: Book leave before Sunday.\nextra'), 'Book leave before Sunday');
 });
+
+test('cleanTodo rejects echoed instructions and long rambles', () => {
+  assert.equal(H.cleanTodo('Start with a verb, under 12 words'), '');
+  assert.equal(H.cleanTodo('"Call Dida this week."'), 'Call Dida this week');
+  assert.equal(H.cleanTodo('word '.repeat(20)), '');
+});
+
+test('excerpt trims mentions and long text', () => {
+  assert.equal(H.excerpt('@Arjun call Dida'), 'call Dida');
+  assert.ok(H.excerpt('a '.repeat(100), 80).endsWith('…'));
+});
+
+test('cleanTodo turns third-person asks into direct to-dos', () => {
+  assert.equal(H.cleanTodo('Arjun is asking you to book your leave for the wedding'), 'Book your leave for the wedding');
+  assert.equal(H.cleanTodo('Ma wants you to call Dida this week.'), 'Call Dida this week');
+});
