@@ -6,7 +6,7 @@ const displayNumFacts = document.getElementById("display-num-facts");
 let genetrateNumFacts = async () => {
   let randomMathNum = Math.floor(Math.random() * 100);
   //**************  notice the below line . That is how I have to manually add random number (User can Add too through input .) **********
-  let apiUrl = await fetch(`http://numbersapi.com/${randomMathNum}?json`);
+  let apiUrl = await fetch(`https://numbersapi.com/${randomMathNum}?json`);
 
   let result = await apiUrl.json();
   //   from json url
@@ -32,7 +32,7 @@ let genetrateNumUsingInput = async () => {
   // user input number
   let inputNum = parseInt(userInput.value);
 
-  let apiUrl = await fetch(`http://numbersapi.com/${inputNum}?json`);
+  let apiUrl = await fetch(`https://numbersapi.com/${inputNum}?json`);
 
   let result = await apiUrl.json();
 
