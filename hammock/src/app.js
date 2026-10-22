@@ -123,7 +123,16 @@ $('#go').onclick = async () => {
       gistEl.classList.add('typing');
       gist = H.cleanDigest(await generate(H.mergePrompt(parts, me), 90, (p) => { gistEl.textContent += p; }));
     }
+    if (!gist) {
+      // Small models on the CPU fallback sometimes stop before writing a word on a long prompt.
+      // Retry once on the most recent, shorter slice of the chat.
+      gistEl.textContent = '';
+      gist = H.cleanDigest(await generate(H.digestPrompt(H.transcript(a.signal.slice(-8), 1200), me), 90, (p) => { gistEl.textContent += p; }));
+    }
     gistEl.classList.remove('typing');
+    if (!gist) {
+      gist = `Gemma returned nothing on this device. Latest real news: ${H.excerpt(a.signal.at(-1).sender + ': ' + a.signal.at(-1).text, 140)}`;
+    }
     gistEl.textContent = gist;
     const bad = H.unverifiedNumbers(gist, a.signal);
     $('#check').innerHTML = bad.length
@@ -137,7 +146,7 @@ $('#go').onclick = async () => {
       const li = document.createElement('li');
       li.innerHTML = `<span class="todo">…</span> <span class="from">from ${esc(m.sender)}</span>`;
       $('#todos').appendChild(li);
-      const todo = H.cleanTodo(await generate(H.askPrompt(m, me), 30)) || m.text.slice(0, 80);
+      const todo = H.cleanTodo(await generate(H.askPrompt(m, me), 30)) || `Reply to: “${H.excerpt(m.text)}”`;
       li.querySelector('.todo').textContent = todo;
       todos.push(`${todo} (${m.sender})`);
       $('#asks').appendChild(askCard(m, todo, me));
@@ -191,7 +200,7 @@ $('#copy-digest').onclick = () => state.digest && navigator.clipboard.writeText(
   if (state.device === 'webgpu') {
     note.textContent = `WebGPU found${state.f16 ? '' : ' (no fp16, using fp32 maths)'}: Gemma runs on your GPU. Deep sleep (Gemma 4) is available if you can spare a 3 GB download.`;
   } else {
-    note.textContent = 'No WebGPU here, so Gemma 3 1B falls back to your CPU (WASM, 8-bit). It works, but slowly and with rougher wording. Chrome or Edge with WebGPU gives the real thing.';
+    note.textContent = 'No WebGPU here, so Gemma 3 1B falls back to your CPU (WASM, 8-bit, ~1 GB). It is slow and rough: to-dos and replies work, the summary line often comes back thin. Chrome or Edge with WebGPU gives the real thing.';
     $('#model').querySelector('[value="gemma-4-e2b"]').disabled = true;
   }
   if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
