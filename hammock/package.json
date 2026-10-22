@@ -1,0 +1,12 @@
+{
+  "name": "hammock",
+  "version": "1.0.0",
+  "description": "Your group chat in two lines. Gemma reads a WhatsApp export inside your browser tab: no server, no API key.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Aniruddha Adak (https://github.com/aniruddhaadak80)",
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "serve": "python3 -m http.server 8080"
+  }
+}

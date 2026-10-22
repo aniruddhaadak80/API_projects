@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Hammock: your group chat in two lines, read by Gemma on your own device</title>
+  <meta name="description" content="Drop a WhatsApp chat export. Hammock skips the good-mornings, finds what needs you, and Gemma writes the catch-up and your replies, entirely in this browser tab." />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="src/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <img class="hero-art" src="assets/hero.jpg" alt="A sloth lying in a hammock at dusk while chat bubbles float away from its phone, leaving two glowing lines" />
+    <div class="hero-text">
+      <p class="eyebrow">🦥 Hammock</p>
+      <h1>Your group chat,<br />in two lines.</h1>
+      <p class="lede">Drop a WhatsApp export. Hammock skips the good-mornings, finds what actually needs you, and Gemma writes the catch-up and your replies, <strong>inside this tab</strong>. No server, no account, no API key.</p>
+      <p class="badge" id="privacy">🔒 Your chat never leaves this device</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="card" id="step-input">
+      <h2><span class="step">1</span> Hand over the chat</h2>
+      <div class="drop" id="drop" tabindex="0">
+        <p><strong>Drop a WhatsApp export (.txt)</strong> or paste below</p>
+        <p class="hint">WhatsApp → open the group → ⋮ → More → Export chat → Without media</p>
+        <input type="file" id="file" accept=".txt,text/plain" hidden />
+        <button class="ghost" id="pick">Choose file</button>
+      </div>
+      <textarea id="chat" rows="6" placeholder="23/10/26, 7:41 am - Pishi: Rini's wedding is moved to 12 Dec…"></textarea>
+      <div class="samples">
+        <span>No chat handy? Try a made-up one:</span>
+        <button class="chip" data-sample="family-group.txt" data-name="Arjun">👪 Family group (76 msgs)</button>
+        <button class="chip" data-sample="hackathon-team.txt" data-name="Arjun">💻 Hackathon team (15 msgs)</button>
+      </div>
+      <div class="row">
+        <label>Your name in the chat
+          <input id="me" placeholder="e.g. Arjun, Arju" />
+          <small>Comma-separate nicknames. Used to find your last message and anything aimed at you.</small>
+        </label>
+        <label>Catch me up on
+          <select id="window">
+            <option value="since-me" selected>Everything since I last spoke</option>
+            <option value="24h">The last 24 hours</option>
+            <option value="all">The whole export</option>
+          </select>
+        </label>
+      </div>
+    </section>
+
+    <section class="card" id="step-sort" hidden>
+      <h2><span class="step">2</span> The lazy part (instant, no AI)</h2>
+      <div class="stats" id="stats"></div>
+    </section>
+
+    <section class="card" id="step-ai" hidden>
+      <h2><span class="step">3</span> Let Gemma read it</h2>
+      <div class="row">
+        <label>Model
+          <select id="model">
+            <option value="gemma-3-1b">Nap: Gemma 3 1B (~0.8 GB, any laptop)</option>
+            <option value="gemma-4-e2b">Deep sleep: Gemma 4 E2B (~3 GB, needs WebGPU)</option>
+          </select>
+          <small id="device-note">Checking for WebGPU…</small>
+        </label>
+        <button class="primary" id="go">🦥 Swing into it</button>
+      </div>
+      <div class="progress" id="progress" hidden><div class="bar"><span id="bar"></span></div><p id="progress-text"></p></div>
+    </section>
+
+    <section class="card result" id="step-result" hidden>
+      <h2>The two lines</h2>
+      <ol class="two-lines">
+        <li><span class="tag">What happened</span><p id="gist" class="stream"></p><p class="check" id="check"></p></li>
+        <li><span class="tag">What needs you</span><ul id="todos"></ul></li>
+      </ol>
+      <div class="actions"><button class="ghost" id="copy-digest">Copy the two lines</button></div>
+      <div id="asks"></div>
+      <p class="payoff" id="payoff"></p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for the DEV Hacktoberfest Open-Source AI Challenge, Week 3: Slow and Steady. Gemma runs via <a href="https://huggingface.co/docs/transformers.js">Transformers.js</a> + ONNX Runtime Web. Model weights download once from the Hugging Face Hub and are cached by your browser. <a href="https://github.com/aniruddhaadak80/hammock">Source (MIT)</a></p>
+  </footer>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>

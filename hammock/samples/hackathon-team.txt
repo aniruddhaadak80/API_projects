@@ -1,0 +1,16 @@
+[22/10/26, 11:50:01 PM] Arjun: pushed the parser, going to sleep. ping me if the build breaks
+[23/10/26, 12:40:12 AM] Meera: build is broken on main 😭 the onnx import fails in safari
+[23/10/26, 12:41:03 AM] Meera: nvm it was my cache. works now
+[23/10/26, 1:15:44 AM] Kabir: lol
+[23/10/26, 1:16:02 AM] Kabir: ‎sticker omitted
+[23/10/26, 2:03:09 AM] Sana: Judging criteria says writing quality is weighted most. We need the blog post draft by Saturday
+[23/10/26, 2:04:30 AM] Sana: I can do the intro + demo gif. Who takes the technical section?
+[23/10/26, 2:20:00 AM] Kabir: @Arjun you wrote the parser, can you write the how-it-works part?
+maybe 300 words, with the regex story
+[23/10/26, 2:22:15 AM] Meera: +1
+[23/10/26, 2:22:40 AM] Kabir: ‎image omitted
+[23/10/26, 3:01:05 AM] Sana: Also the demo video has to be under 2 min
+[23/10/26, 3:30:33 AM] Meera: I will record it Friday night
+[23/10/26, 4:02:02 AM] Kabir: ok sleeping
+[23/10/26, 4:02:09 AM] Kabir: 😴
+[23/10/26, 4:10:00 AM] Meera: Arjun when you wake up, can you check if the model loads on your old laptop? mine has a GPU so I cannot test the wasm path
