@@ -205,8 +205,21 @@ export function cleanDigest(raw) {
   return lines.join(' ').replace(/^(summary|news)\s*:\s*/i, '').trim();
 }
 
+// Small models sometimes echo the instructions or answer in the third person. Reject those so the
+// UI can fall back to a plain excerpt of the message instead of showing nonsense.
+const ECHO = /(starts? with a verb|under \d+ words|to-do only|reply with|^(okay|ok|sure)\b|here('|’)?s (a|the|my))/i;
 export function cleanTodo(raw) {
-  return raw.replace(/\*\*/g, '').split('\n').map(s => s.trim()).filter(Boolean)[0]?.replace(/^[-*•\s]+|^to-?do\s*:\s*/gi, '').replace(/[.]$/, '').trim() || '';
+  const t = raw.replace(/\*\*/g, '').split('\n').map(s => s.trim()).filter(Boolean)[0]?.replace(/^[-*•\s]+|^to-?do\s*:\s*/gi, '').replace(/^["'“]|["'”]$/g, '').replace(/[.]$/, '').trim() || '';
+  if (!t || ECHO.test(t) || t.split(/\s+/).length > 16) return '';
+  // "Ma is asking you to book leave" -> "Book leave"
+  const direct = t.replace(/^[\p{L} .'-]{1,30}? (is asking|asks|wants|would like|needs) (you|me) to\s+/iu, '');
+  return direct.charAt(0).toUpperCase() + direct.slice(1);
+}
+
+// Fallback when the model returns nothing usable: the message itself, trimmed to a readable length.
+export function excerpt(text, max = 80) {
+  const t = text.replace(/\s+/g, ' ').replace(/@\S+\s*/g, '').trim();
+  return t.length > max ? t.slice(0, t.lastIndexOf(' ', max) > 40 ? t.lastIndexOf(' ', max) : max) + '…' : t;
 }
 
 export function cleanReply(raw) {
