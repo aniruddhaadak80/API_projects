@@ -11,7 +11,7 @@ Both sample chats in `samples/` are **made up** for the demo (fictional names an
 | `family-group.txt` (Android export format) | 76 | 74 | 64 (19 greetings, 16 emoji-only, 13 media, 12 one-word reactions, 2 deleted, 2 forwards) | 10 | 2 |
 | `hackathon-team.txt` (iOS export format) | 15 | 14 | 6 | 8 | 2 |
 
-The skip / mention numbers come from `src/core.js` and are pinned by `test/core.test.mjs` (11 tests, `npm test`, all passing).
+The skip / mention numbers come from `src/core.js` and are pinned by `test/core.test.mjs` (14 tests, `npm test`, all passing).
 
 ## Model quality on the same prompts
 
@@ -53,3 +53,15 @@ Takeaways that shaped the design:
 - **Network**: during a full run the page only made GET requests: the app's own files, `cdn.jsdelivr.net` (Transformers.js + ONNX Runtime Web) and the Hugging Face Hub (model weights). No request carried the chat.
 
 Not measured: speed on a real laptop GPU, Safari, Firefox, phones.
+
+## Second pass (23 Oct 2026, after a headless-browser run exposed the CPU path)
+
+A full WASM run of the first build in headless Chromium 129 showed two real bugs on the 8-bit CPU model: line one came back **empty** (0 tokens), and one to-do was the instruction itself ("Start with a verb, under 12 words"). Fixes:
+
+- `cleanTodo` now rejects echoed instructions, "Okay, here's…" preambles and anything over 16 words, and rewrites "Ma is asking you to X" into "X". When it rejects, the UI shows `Reply to: "<excerpt>"` instead.
+- If line one is empty, Hammock retries once on the last 8 messages (≤1,200 chars). If that is also empty, it says Gemma returned nothing and shows the latest message.
+- I tried moving the CPU path to Gemma 3 270M (8-bit `model_quantized`): it fails on WASM with the same missing `GatherBlockQuantized` kernel, so the CPU path stays on 1B `model_uint8`.
+
+Re-run of the fixed build, same sandbox, family sample, WASM: first gist attempt 0 tokens (25.7 s), retry 46 tokens (64.4 s), two to-dos (16.3 s, 17.4 s), one "later" reply (25.8 s); 132 s for the digest, 164 s wall including model load from cache. The retried summary is fluent but wrong about who did what (it makes Arjun the actor). Only GET requests were made, to the app itself, `cdn.jsdelivr.net` and `huggingface.co`.
+
+With the 4-bit weights the WebGPU path uses (checked in Node, `onnxruntime-node`, q4), the same to-do prompt gives: "Book your leave for the wedding", "Call Dida this week", "Start the how-it-works section", "Check the model's loading on Arjun's old laptop".
