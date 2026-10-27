@@ -1,0 +1,15 @@
+🕯  digging through express's history...
+   502 files were buried and never came back
+   [1/12] lib/express/core.js: “Body” rejected, cruft purged, a simpler route now flows.
+   [2/12] lib/express/request.js: “Isxhr” departed, seeking a simpler connection.
+   [3/12] test/view.test.js: “Hello.jade”’s rendering ceased, a quiet, final view.
+   [4/12] lib/router/index.js: Arguments assembled, then swiftly, silently, dismissed.
+   [5/12] lib/express/view.js: “Return str;” – A final, insistent plea.
+   [6/12] test/response.test.js: “hey” – a final, bewildered message.
+   [7/12] spec/spec.core.js: “Should throw an error,” a final, unfulfilled plea.
+   [8/12] lib/express/plugins/view.js: “Null” was its last word, a clean, decisive end.
+   [9/12] lib/express/collection.js: Collection born, Collection gone, a swift transition.
+   [10/12] lib/http.js: “All” methods handled, then swiftly deleted, a quiet end.
+   [11/12] spec/spec.collection.js: “Foo: bar” – a final, insistent declaration.
+   [12/12] examples/chat/app.js: JSON encoded messages, a final, fleeting send.
+🌼 altar built in ../runs/express-4b/ (12 souls, 317s, 0 fell back to the plain template)
