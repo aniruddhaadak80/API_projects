@@ -6,6 +6,7 @@ Every long-lived repository has a graveyard. Files that ran production for years
 
 `git-ofrenda` digs them up. It walks your git history, finds every file that was deleted and never came back, collects the facts of its life (born, died, who tended it, what killed it, its last lines of code), and asks a **local open-weight model** to write it an epitaph. Then it builds an altar: a Día de los Muertos style page with a headstone per file. And if you want to ask a dead file a question, you can hold a **séance**.
 
+- **Write-up on DEV:** https://dev.to/aniruddhaadak/git-ofrenda-an-altar-for-the-code-your-repo-buried-with-epitaphs-by-gemma-running-on-my-cpu-d3o
 - **Live altar (Express.js history):** https://aniruddhaadak80.github.io/API_projects/git-ofrenda/
 - **Single file, Python standard library only.** No pip install.
 - **Runs on your machine.** Talks to Ollama or any OpenAI-compatible local server (llama.cpp `llama-server`, LM Studio, vLLM). It ignores system proxies on purpose so nothing leaves localhost.
