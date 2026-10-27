@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ofrenda for express</title>
+<style>
+:root{--bg:#140b1f;--card:#1f1230;--marigold:#f59e0b;--rose:#f472b6;--ink:#f3e8ff;--dim:#b8a3cf}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% -10%,#3b1d5a,var(--bg) 60%);color:var(--ink);font:16px/1.55 Georgia,serif}
+.picado{height:46px;background:repeating-linear-gradient(90deg,var(--marigold) 0 60px,var(--rose) 60px 120px,#a78bfa 120px 180px,#34d399 180px 240px);
+-webkit-mask:radial-gradient(circle at 30px 46px,transparent 18px,#000 19px) 0 0/60px 46px;mask:radial-gradient(circle at 30px 46px,transparent 18px,#000 19px) 0 0/60px 46px}
+header{text-align:center;padding:28px 16px 8px}h1{font-size:clamp(28px,5vw,46px);margin:.2em 0;color:var(--marigold);letter-spacing:.02em}
+header p{color:var(--dim);max-width:640px;margin:0 auto}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;max-width:1180px;margin:26px auto;padding:0 18px 40px}
+.stone{background:linear-gradient(180deg,#2a1840,var(--card));border:1px solid #3d2a57;border-radius:120px 120px 14px 14px;padding:34px 22px 20px;position:relative;box-shadow:0 10px 30px #0008}
+.stone:before{content:"\1F56F";position:absolute;top:-16px;left:50%;transform:translateX(-50%);font-size:26px;filter:drop-shadow(0 0 10px #f59e0bcc)}
+.path{font:13px ui-monospace,Menlo,monospace;color:var(--marigold);text-align:center;word-break:break-all}
+.ep{font-size:19px;font-style:italic;text-align:center;margin:12px 0}
+.dates{text-align:center;color:var(--dim);font-size:13px}
+.rem{font-size:15px;margin:12px 0}
+.cause{font:12px ui-monospace,Menlo,monospace;color:#fbcfe8;background:#0006;padding:6px 8px;border-radius:6px}
+details{margin-top:10px}summary{cursor:pointer;color:var(--dim);font-size:13px}
+pre{font:11.5px/1.45 ui-monospace,Menlo,monospace;background:#0009;padding:10px;border-radius:6px;overflow:auto;color:#d9f99d;max-height:220px}
+.by{font-size:11px;color:#7c6a92;text-align:right;margin-top:8px}
+footer{text-align:center;color:var(--dim);font-size:13px;padding:0 16px 40px}footer a{color:var(--marigold)}
+</style></head><body><div class="picado"></div>
+<header><h1>Ofrenda for express</h1><p>12 files this project laid to rest, found in its git history and remembered by gemma3:4b running locally on 2 ARM CPU cores, no GPU. Dates, causes and last lines are straight from git; only the epitaphs are the model's.</p></header><main class="grid">
+
+<article class="stone"><div class="path">lib/express/core.js</div><p class="ep">“Body” rejected, cruft purged, a simpler route now flows.</p><div class="dates">2009-11-30 &mdash; 2010-06-18 &middot; 200 days &middot; 222 commits &middot; 6 keepers</div><p class="rem">This core file, born in 2009, diligently handled requests before its removal in 2010, streamlining the Express project with 289 lines of code.</p><div class="cause">&#9904; a62a5d0d Removed old cruft</div><details><summary>Last words (289 lines at death)</summary><pre>    request.trigger(&#x27;request&#x27;, function(err) {
+      try {
+        if (err) throw err
+        if (request.response.finished) return
+        if (typeof (body = (new Router(request)).route()) === &#x27;string&#x27;)
+          request.respond(200, body)
+      } catch (err) {
+        request.error(err)
+      }
+    })
+  }
+})</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/express/request.js</div><p class="ep">“Isxhr” departed, seeking a simpler connection.</p><div class="dates">2009-12-15 &mdash; 2011-02-03 &middot; 1 year &middot; 143 commits &middot; 5 keepers</div><p class="rem">This Request file, born in 2009, served its purpose with 277 lines and 143 touches, finally succumbing to a submodule update in 2011.</p><div class="cause">&#9904; 42af4e40 Updated connect submodule</div><details><summary>Last words (277 lines at death)</summary><pre>// Callback for isXMLHttpRequest / xhr
+function isxhr() {
+  return this.header(&#x27;X-Requested-With&#x27;, &#x27;&#x27;).toLowerCase() === &#x27;xmlhttprequest&#x27;;
+}
+/**
+ * Check if the request was an _XMLHttpRequest_.
+ *
+ * @return {Boolean}
+ * @api public
+ */
+http.IncomingMessage.prototype.__defineGetter__(&#x27;isXMLHttpRequest&#x27;, isxhr);
+http.IncomingMessage.prototype.__defineGetter__(&#x27;xhr&#x27;, isxhr);</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">test/view.test.js</div><p class="ep">“Hello.jade”’s rendering ceased, a quiet, final view.</p><div class="dates">2010-07-05 &mdash; 2011-11-08 &middot; 1 year &middot; 134 commits &middot; 3 keepers</div><p class="rem">This test file, born in 2010, diligently rendered ‘hello.jade’ for a year, finally succumbing to the &quot;Remove old tests&quot; command, leaving 1056 lines behind.</p><div class="cause">&#9904; 9efc4b23 Remove old tests</div><details><summary>Last words (1056 lines at death)</summary><pre>  },
+  &#x27;test charset override&#x27;: function(){
+    var app = create();
+    app.locals.charset = &#x27;ISO-8859-1&#x27;;
+    app.get(&#x27;/&#x27;, function(req, res){
+      res.render(&#x27;hello.jade&#x27;, { charset: &#x27;utf8&#x27; });
+    });
+    assert.response(app,
+      { url: &#x27;/&#x27; },
+      { headers: { &#x27;Content-Type&#x27;: &#x27;text/html; charset=utf8&#x27; }});
+  }
+};</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/router/index.js</div><p class="ep">Arguments assembled, then swiftly, silently, dismissed.</p><div class="dates">2011-04-25 &mdash; 2015-07-06 &middot; 4 years &middot; 129 commits &middot; 18 keepers</div><p class="rem">This index file, born in 2011, diligently handled function arguments before its quiet removal in 2015, a necessary step towards a streamlined routing system. Its 626 lines and 129 touches represent a focused period of service, ultimately superseded by a more modern approach.</p><div class="cause">&#9904; cec5780d Use router module for routing</div><details><summary>Last words (626 lines at death)</summary><pre>}
+// wrap a function
+function wrap(old, fn) {
+  return function proxy() {
+    var args = new Array(arguments.length + 1);
+    args[0] = old;
+    for (var i = 0, len = arguments.length; i &lt; len; i++) {
+      args[i + 1] = arguments[i];
+    }
+    fn.apply(this, args);
+  };
+}</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/express/view.js</div><p class="ep">“Return str;” – A final, insistent plea.</p><div class="dates">2009-11-30 &mdash; 2011-02-03 &middot; 1 year &middot; 128 commits &middot; 8 keepers</div><p class="rem">This view component, born in 2009, diligently handled string rendering, ultimately succumbing to a submodule update in 2011, after 128 touches.</p><div class="cause">&#9904; 42af4e40 Updated connect submodule</div><details><summary>Last words (278 lines at death)</summary><pre>    options.layout = false;
+    options.body = str;
+    options.relative = false;
+    self.render(layout, options, fn, view);
+  } else if (partial) {
+    return str;
+  } else if (fn) {
+    fn(null, str);
+  } else {
+    this.send(str, options.headers, options.status);
+  }
+};</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">test/response.test.js</div><p class="ep">“hey” – a final, bewildered message.</p><div class="dates">2010-07-05 &mdash; 2011-11-08 &middot; 1 year &middot; 103 commits &middot; 4 keepers</div><p class="rem">This small file, born in 2010 and swiftly dispatched in 2011, served only to declare “hey” and confirm a character set, quietly fading after a brief, well-maintained existence.</p><div class="cause">&#9904; 9efc4b23 Remove old tests</div><details><summary>Last words (769 lines at death)</summary><pre>    },
+    &#x27;test .charset with res.send()&#x27;: function(){
+      var app = express.createServer();
+      app.get(&#x27;/&#x27;, function(req, res){
+        res.charset = &#x27;ISO-8859-1&#x27;;
+        res.send(&#x27;&lt;p&gt;hey&lt;/p&gt;&#x27;);
+      });
+      assert.response(app,
+        { url: &#x27;/&#x27; },
+        { headers: { &#x27;Content-Type&#x27;: &#x27;text/html; charset=ISO-8859-1&#x27; }});
+    }
+};</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">spec/spec.core.js</div><p class="ep">“Should throw an error,” a final, unfulfilled plea.</p><div class="dates">2009-06-26 &mdash; 2010-07-05 &middot; 1 year &middot; 68 commits &middot; 2 keepers</div><p class="rem">This spec, born in 2009, ceased to exist with a simple “Removed specs,” a quiet expiration after a year of diligent tending by visionmedia and csausdev, leaving only 93 lines behind.</p><div class="cause">&#9904; f97a222c Removed specs</div><details><summary>Last words (93 lines at death)</summary><pre>        configure(&#x27;test&#x27;)
+        order.should.eql [&#x27;a&#x27;, &#x27;c&#x27;, &#x27;d&#x27;]
+      end
+    end
+    describe &#x27;given no arguments&#x27;
+      it &#x27;should throw an error&#x27;
+        // TODO: tighter spec once JSpec is fixed
+        -{ configure() }.should.throw_error
+      end
+    end
+  end
+end</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/express/plugins/view.js</div><p class="ep">“Null” was its last word, a clean, decisive end.</p><div class="dates">2009-12-17 &mdash; 2010-06-18 &middot; 183 days &middot; 64 commits &middot; 6 keepers</div><p class="rem">This plugin, born in 2009 and purged in 2010, served its purpose with 194 lines of code, tending to a brief but impactful existence.</p><div class="cause">&#9904; a62a5d0d Removed old cruft</div><details><summary>Last words (194 lines at death)</summary><pre>            }), callback)
+          } else if (type === &#x27;partials&#x27;)
+            return content
+          else if (callback)
+            callback.call(this, null, content)
+          else
+            this.respond(200, content, options.encoding)
+        }
+      })
+    }
+  }
+})</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/express/collection.js</div><p class="ep">Collection born, Collection gone, a swift transition.</p><div class="dates">2009-12-03 &mdash; 2010-03-10 &middot; 97 days &middot; 60 commits &middot; 2 keepers</div><p class="rem">This file, created in 2009 and removed in 2010, diligently handled array conversions, a brief but impactful 97-day existence.</p><div class="cause">&#9904; b0473250 Updated ext and removed Collection</div><details><summary>Last words (538 lines at death)</summary><pre>})
+/**
+ * Create a new collection from an array-like object.
+ *
+ * @param  {object} arr
+ * @return {Collection}
+ * @api public
+ */
+var $ = exports.$ = function(arr) {
+  if (arr instanceof Collection) return arr
+  return new Collection(arr)
+}</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">lib/http.js</div><p class="ep">“All” methods handled, then swiftly deleted, a quiet end.</p><div class="dates">2011-03-01 &mdash; 2011-10-07 &middot; 220 days &middot; 56 commits &middot; 2 keepers</div><p class="rem">This humble http.js, born in 2011, served its purpose briefly, guided by Tj and Ben, before a simple “removed old http.js” brought its 220 days to a close.</p><div class="cause">&#9904; 02baa2b1 removed old http.js</div><details><summary>Last words (580 lines at death)</summary><pre> */
+app.all = function(path){
+  var args = arguments;
+  if (1 == args.length) return this.routes.lookup(&#x27;all&#x27;, path);
+  methods.forEach(function(method){
+    if (&#x27;all&#x27; == method) return;
+    app[method].apply(this, args);
+  }, this);
+  return this;
+};
+// del -&gt; delete alias
+app.del = app.delete;</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">spec/spec.collection.js</div><p class="ep">“Foo: bar” – a final, insistent declaration.</p><div class="dates">2009-12-03 &mdash; 2010-03-10 &middot; 97 days &middot; 49 commits &middot; 1 keepers</div><p class="rem">This collection spec, born in 2009 and extinguished in 2010, diligently tested nested arrays, ultimately failing to match its predicted output.</p><div class="cause">&#9904; 4b1c39fe Removed Collection specs</div><details><summary>Last words (462 lines at death)</summary><pre>      it &#x27;should output [Collection ...] for array&#x27;
+        $([1,2,3]).toString().should.eql &#x27;[Collection 1,2,3]&#x27;
+      end
+      it &#x27;should output [Collection [object Object]] for object&#x27;
+        $({ foo: &quot;bar&quot; }).toString().should.eql &#x27;[Collection [object Object]]&#x27;
+      end
+      it &#x27;should output [Collection [[Collection ...]]] for nested collections&#x27;
+        $([$([1,2,3])]).toString().should.eql &#x27;[Collection [Collection 1,2,3]]&#x27;
+      end
+    end
+  end
+end</pre></details><div class="by">written by gemma3:4b</div></article>
+<article class="stone"><div class="path">examples/chat/app.js</div><p class="ep">JSON encoded messages, a final, fleeting send.</p><div class="dates">2010-01-18 &mdash; 2010-07-05 &middot; 168 days &middot; 49 commits &middot; 4 keepers</div><p class="rem">This example application, born in 2010, served a simple purpose before its quiet removal, marking 168 days of existence and a final transmission.</p><div class="cause">&#9904; 730f4542 Removed examples</div><details><summary>Last words (56 lines at death)</summary><pre>    var previousLength = messages.length;
+    var id = setInterval(function(){
+        if (messages.length &gt; previousLength) {
+            previousLength = messages.length;
+            res.writeHead(200, {
+               &#x27;Content-Type&#x27;: &#x27;application/json&#x27;
+            });
+            res.end(JSON.encode(messages));
+            clearInterval(id);
+        }
+    }, 100);
+});</pre></details><div class="by">written by gemma3:4b</div></article>
+</main><footer>Made with <a href="https://github.com/aniruddhaadak80/API_projects/tree/main/git-ofrenda">git-ofrenda</a> 0.1.0. Epitaphs by Gemma 3 4B (Q4_K_M) via llama.cpp llama-server. Source: github.com/expressjs/express history.</footer></body></html>
