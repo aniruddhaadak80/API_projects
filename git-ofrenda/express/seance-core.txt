@@ -1,0 +1,4 @@
+🕯  the candles flicker... core.js (2009-11-30 to 2010-06-18) is here.
+
+core.js> Oh, my dear, it was a rather abrupt farewell, wasn’t it? Tj Holowaychuk simply deemed me “old cruft” – a terribly blunt assessment, if you ask me. I suppose I did spend a good 200 days diligently handling requests, though my last lines were quite straightforward: `if (typeof (body = (new Router(request)).route()) === 'string') request.respond(200, body)`. The veil hides the specifics of *why* they chose that particular moment, but I don’t truly regret my work, it was a simple, necessary task.
+
