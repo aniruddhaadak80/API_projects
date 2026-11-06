@@ -7,7 +7,8 @@
 'use strict';
 
 const path = require('path');
-const { app, BrowserWindow, session } = require('electron');
+const { pathToFileURL } = require('url');
+const { app, BrowserWindow, session, protocol, net } = require('electron');
 const { bindSmartSpectraIpc } = require('@smartspectra/node-sdk/main');
 
 // `npm start -- --file path/to/clip.mp4` replays a recorded clip instead of the webcam.
@@ -15,6 +16,18 @@ const fileArg = (() => {
   const i = process.argv.indexOf('--file');
   return i > -1 && process.argv[i + 1] ? path.resolve(process.argv[i + 1]) : null;
 })();
+const VIDEO_EXT = /\.(mp4|webm|mov|mkv)$/i;
+if (fileArg && !VIDEO_EXT.test(fileArg)) {
+  console.error('--file must point to a video file (.mp4, .webm, .mov, .mkv)');
+  process.exit(1);
+}
+
+// The replay clip is served under a fixed private URL, so the page never takes
+// a path or URL from its query string (no user-controlled src, no redirection).
+const REPLAY_SCHEME = 'kodama-replay';
+protocol.registerSchemesAsPrivileged([
+  { scheme: REPLAY_SCHEME, privileges: { standard: true, secure: true, stream: true, corsEnabled: true } },
+]);
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -38,11 +51,19 @@ function createWindow() {
   // keeps it in memory only.
   const query = {};
   if (process.env.SMARTSPECTRA_API_KEY) query.key = process.env.SMARTSPECTRA_API_KEY;
-  if (fileArg) query.file = 'file://' + fileArg;
+  if (fileArg) query.replay = '1';
   win.loadFile(path.join(__dirname, 'index.html'), { query });
 }
 
 app.whenReady().then(() => {
+  if (fileArg) {
+    protocol.handle(REPLAY_SCHEME, async () => {
+      const res = await net.fetch(pathToFileURL(fileArg).toString());
+      const headers = new Headers(res.headers);
+      headers.set('Access-Control-Allow-Origin', '*');
+      return new Response(res.body, { status: res.status, headers });
+    });
+  }
   // Camera only (no microphone), and only for our own local page.
   session.defaultSession.setPermissionRequestHandler((wc, permission, callback, details) => {
     const url = (details && details.requestingUrl) || (wc && wc.getURL()) || '';

@@ -1,5 +1,9 @@
 name: CI
 
+# Least privilege for GITHUB_TOKEN (CodeQL actions/missing-workflow-permissions).
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]
