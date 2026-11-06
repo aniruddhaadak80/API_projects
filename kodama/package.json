@@ -1,0 +1,23 @@
+{
+  "name": "kodama",
+  "version": "1.0.0",
+  "description": "A desk-bonsai spirit that grows when you breathe slowly and asks you to breathe with it when your pulse climbs. Built on the Presage SmartSpectra SDK.",
+  "main": "main.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "esbuild renderer.js --bundle --outfile=dist/renderer.bundle.js --platform=browser --format=iife --log-level=warning",
+    "start": "npm run build && electron .",
+    "start:file": "npm run build && electron . --file",
+    "record": "node tools/record-session.mjs",
+    "demo": "node tools/render-demo.mjs",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@smartspectra/node-sdk": "^3.4.0"
+  },
+  "devDependencies": {
+    "@napi-rs/canvas": "^0.1.65",
+    "electron": "^43.2.0",
+    "esbuild": "^0.25.0"
+  }
+}

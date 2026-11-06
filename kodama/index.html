@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; style-src 'self' 'unsafe-inline'; worker-src 'self' blob:; media-src 'self' blob: file:;">
+  <title>Kodama</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <canvas id="world"></canvas>
+
+  <!-- Consent comes first. The camera is not touched until you press Start. -->
+  <section id="consent" class="card">
+    <h1>Kodama 🌱</h1>
+    <p class="lead">A tiny tree spirit that lives on your desk. It grows when you breathe slowly, and when your pulse climbs above your own calm it asks you to breathe with it for a minute.</p>
+    <h2>Before you start</h2>
+    <ul>
+      <li><b>Camera:</b> Kodama uses your webcam only while a session is running. Stop ends it and releases the camera.</li>
+      <li><b>What it reads:</b> breathing rate and chest movement, pulse rate, HRV, blinks, talking and facial expression, measured by the Presage SmartSpectra SDK.</li>
+      <li><b>What it keeps:</b> nothing. No video, no images and no readings are saved to disk or sent anywhere by Kodama. Close the window and it's gone.</li>
+      <li><b>Presage:</b> the SDK signs in to Presage with the API key to run. Its optional diagnostics contain no video and no measured values. They are <b>off</b> unless you tick the box below.</li>
+      <li><b>Not medical:</b> Kodama is a wellness toy. It compares you only with your own first minute and never diagnoses anything.</li>
+    </ul>
+    <label class="row" id="key-row"><span>Presage API key</span><input id="key" type="password" placeholder="kept in memory only"></label>
+    <label class="row"><input id="telemetry" type="checkbox"> <span>Share anonymous SDK diagnostics with Presage (no video, no readings)</span></label>
+    <label class="row"><input id="agree" type="checkbox"> <span>I understand and I'm happy to turn on my camera.</span></label>
+    <button id="start" disabled>Start</button>
+  </section>
+
+  <video id="preview" autoplay playsinline muted hidden></video>
+  <div id="controls" hidden>
+    <button id="breathe">Breathe with Kodama</button>
+    <button id="pip">Hide camera</button>
+    <button id="stop">Stop</button>
+  </div>
+  <div id="nudge" class="card small" hidden>
+    <p>Kodama feels restless. Breathe with it for one minute?</p>
+    <button id="nudge-yes">Yes</button> <button id="nudge-no">Not now</button>
+  </div>
+  <div id="error" class="card small" hidden></div>
+
+  <script src="./src/brain.js"></script>
+  <script src="./src/scene.js"></script>
+  <script src="./dist/renderer.bundle.js"></script>
+</body>
+</html>

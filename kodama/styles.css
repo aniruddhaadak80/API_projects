@@ -1,0 +1,16 @@
+html, body { margin: 0; height: 100%; background: #0e1424; color: #eef; font: 15px/1.45 system-ui, sans-serif; overflow: hidden; }
+#world { position: fixed; inset: 0; width: 100vw; height: 100vh; }
+.card { position: fixed; background: rgba(12,16,28,.92); border: 1px solid #2c3550; border-radius: 16px; padding: 22px 26px; box-shadow: 0 20px 60px rgba(0,0,0,.45); }
+#consent { left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(620px, 92vw); }
+#consent h1 { margin: 0 0 6px; } #consent h2 { font-size: 15px; margin: 18px 0 6px; color: #9fb3d9; }
+#consent ul { padding-left: 18px; margin: 0; } #consent li { margin: 4px 0; }
+.lead { color: #c9d4ee; }
+.row { display: flex; gap: 10px; align-items: center; margin-top: 12px; }
+.row input[type=password] { flex: 1; background: #0b0f1b; border: 1px solid #2c3550; color: #eef; padding: 8px 10px; border-radius: 8px; }
+button { background: #8fd6a8; color: #10241a; border: 0; border-radius: 10px; padding: 9px 16px; font-weight: 600; cursor: pointer; margin-top: 14px; }
+button:disabled { opacity: .45; cursor: default; }
+#preview { position: fixed; top: 16px; right: 16px; width: 220px; border-radius: 12px; transform: scaleX(-1); border: 2px solid rgba(255,255,255,.25); }
+#controls { position: fixed; right: 16px; bottom: 16px; display: flex; gap: 8px; }
+#controls button { margin: 0; background: rgba(255,255,255,.14); color: #eef; }
+#nudge { right: 16px; bottom: 70px; } .small { padding: 14px 18px; max-width: 320px; }
+#error { left: 16px; top: 16px; border-color: #a54; }
