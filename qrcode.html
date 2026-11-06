@@ -50,7 +50,7 @@
 
       <br />
 
-      <img src="" alt="" id="displayQr" class="m-3" />
+      <img src="" alt="QR code for your text" id="displayQr" class="m-3" hidden />
     </div>
 
     <!-- Javascript code to add interactivity   -->
@@ -72,10 +72,12 @@
             `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${userval}`;
           //display the qr image
           displayQr.src = apiUrl;
+          displayQr.hidden = false;
         }
       };
 
       generateBtn.addEventListener("click", generateQrfunc);
+      userInput.addEventListener("keydown", (e) => { if (e.key === "Enter") generateQrfunc(); });
     </script>
   </body>
 </html>

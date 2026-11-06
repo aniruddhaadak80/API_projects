@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Random Color</title>
+    <link rel="icon" type="image/x-icon" href="./favicon.ico" />
     <style>
       * {
         text-align: center;
@@ -12,9 +13,11 @@
     </style>
   </head>
   <body>
+    <nav><a href="./index.html"><button type="button">🏠Home</button></a></nav>
     <h1 id="random-color-h1">Get Random Color</h1>
     <br />
-    <button id="random-color-Btn">Get Random Color</button>
+    <button id="random-color-Btn" type="button">Get Random Color</button>
+    <p id="color-code" aria-live="polite"></p>
 
     <!-- Script i.e javascript Source  -->
     <script>
@@ -22,20 +25,25 @@
       const randomColorH1 = document.getElementById("random-color-h1");
       const randomColorBtn = document.getElementById("random-color-Btn");
 
-      let generateRandomColor = async () => {
-        let apiUrl = await fetch("https://x-colors.yurace.pro/api/random");
-        let result = await apiUrl.json();
+      const colorCode = document.getElementById("color-code");
 
-        //Apply Random color on H1 tag
-        randomColorH1.style.color = result.rgb;
-
-        //Apply Random color on button
-        randomColorBtn.style.color = result.rgb;
-
-        // console.log(result);
+      const generateRandomColor = async () => {
+        try {
+          const res = await fetch("https://x-colors.yurace.pro/api/random");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const result = await res.json();
+          randomColorH1.style.color = result.rgb;
+          randomColorBtn.style.color = result.rgb;
+          colorCode.textContent = `${result.hex} · ${result.rgb}`;
+        } catch (err) {
+          colorCode.textContent = "Couldn't reach the color API. Try again.";
+          console.error("colors:", err);
+        }
       };
-      setInterval(generateRandomColor, 500);
+      randomColorBtn.addEventListener("click", generateRandomColor);
       generateRandomColor();
+      // auto-refresh every 3 s while the tab is visible
+      setInterval(() => { if (!document.hidden) generateRandomColor(); }, 3000);
     </script>
   </body>
 </html>
