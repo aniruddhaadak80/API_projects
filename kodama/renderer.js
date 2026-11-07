@@ -57,7 +57,7 @@ async function start() {
 
   try {
     const file = params.get('file');
-    if (file) {
+    if (file && /^(https?:\/\/|\/|blob:|data:video\/)/.test(file)) {
       // Replay mode: play the clip and hand its frames to the SDK as a stream.
       const v = $('preview');
       v.src = file; v.hidden = false; v.loop = false;
