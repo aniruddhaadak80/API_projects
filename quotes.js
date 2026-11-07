@@ -1,23 +1,24 @@
-// *******  for random quotes with author name *****
+// Random quote with author. Quotable (api.quotable.io) went offline, so this uses DummyJSON.
 const generateBtn = document.getElementById("generateQuote");
-
 const displayQuotes = document.getElementById("displayQuotes");
-
 const authorname = document.getElementById("authorname");
 
-let getRandonQuote = async () => {
-  let api = await fetch("https://api.quotable.io/random");
-  let result = await api.json();
-
-  //   Display the quote
-  displayQuotes.innerHTML = result.content;
-
-  // Display the author name
-  authorname.innerHTML = `by ➡️ ${result.author}`;
-  console.table(result);
+const getRandomQuote = async () => {
+  try {
+    const res = await fetch("https://dummyjson.com/quotes/random");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const { quote, author } = await res.json();
+    // textContent, never innerHTML: API text is shown as plain text.
+    displayQuotes.textContent = quote;
+    authorname.textContent = `by ➡️ ${author}`;
+  } catch (err) {
+    displayQuotes.textContent = "Couldn't load a quote right now. Try again in a moment.";
+    authorname.textContent = "";
+    console.error("quotes:", err);
+  }
 };
 
-generateBtn.addEventListener("click", getRandonQuote);
-
-// generate Quotes after every 9 seconds
-setInterval(getRandonQuote, 9000);
+generateBtn.addEventListener("click", getRandomQuote);
+getRandomQuote();
+// A new quote every 9 seconds, paused while the tab is hidden.
+setInterval(() => { if (!document.hidden) getRandomQuote(); }, 9000);

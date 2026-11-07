@@ -1,24 +1,60 @@
 name: CI
 
+# Least privilege for GITHUB_TOKEN (CodeQL actions/missing-workflow-permissions).
+permissions:
+  contents: read
+
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   check-links:
     name: Check local asset and link references
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
-
       - name: Verify every local reference resolves to a committed file
         run: node .github/scripts/check-links.mjs
+
+  test-js:
+    name: JavaScript tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Small apps (leap year, number facts)
+        run: npm test
+      - name: Hammock
+        working-directory: hammock
+        run: npm test
+      - name: Kodama signal logic (no SDK or camera needed)
+        working-directory: kodama
+        run: node --test test/*.test.js
+
+  test-python:
+    name: git-ofrenda tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Configure git identity for the throwaway test repo
+        run: |
+          git config --global user.name "ci"
+          git config --global user.email "ci@example.com"
+      - name: Run unittest
+        working-directory: git-ofrenda
+        run: python -m unittest -v test_ofrenda.py

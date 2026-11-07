@@ -1,15 +1,16 @@
 const boredBtn = document.getElementById("boredBtn");
-
 const displayActivities = document.getElementById("displayActivities");
 
-let generateActivities = async () => {
-  let apiUrl = await fetch(
-    "https://www.boredapi.com/api/activity?participants=1"
-  );
-  let result = await apiUrl.json();
-  //   display activity from api endpoint
-  displayActivities.innerHTML = result.activity;
-  console.table(result);
+const generateActivities = async () => {
+  try {
+    const res = await fetch("https://www.boredapi.com/api/activity?participants=1");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const result = await res.json();
+    displayActivities.textContent = result.activity;
+  } catch (err) {
+    displayActivities.textContent = "Couldn't load an activity right now. Try again in a moment.";
+    console.error("bored:", err);
+  }
 };
 
 boredBtn.addEventListener("click", generateActivities);

@@ -16,6 +16,7 @@ const { Scene } = window.KodamaScene;
 
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
+const REPLAY_URL = 'kodama-replay://clip/replay';
 const canvas = $('world');
 const ctx = canvas.getContext('2d');
 
@@ -56,11 +57,12 @@ async function start() {
   });
 
   try {
-    const file = params.get('file');
-    if (file && /^(https?:\/\/|\/|blob:|data:video\/)/.test(file)) {
-      // Replay mode: play the clip and hand its frames to the SDK as a stream.
+    if (params.get('replay') === '1') {
+      // Replay mode: main serves the --file clip at this fixed URL; the page
+      // never builds a media URL from its query string.
       const v = $('preview');
-      v.src = file; v.hidden = false; v.loop = false;
+      v.crossOrigin = 'anonymous';
+      v.src = REPLAY_URL; v.hidden = false; v.loop = false;
       await v.play();
       sdk.useMediaStream(v.captureStream());
     }
