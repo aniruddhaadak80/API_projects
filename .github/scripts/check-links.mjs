@@ -106,12 +106,18 @@ function resolveReference(fromFile, rawUrl, kind) {
   // the repository layout, so we cannot verify them here.
   if (withoutFragment.startsWith("/")) return true;
 
+  // Build outputs (dist/, build/, etc.) are generated, not committed. A
+  // reference into one of those directories is produced by the project's
+  // build step, so it resolves at runtime even though it is absent from the
+  // checkout (e.g. kodama/index.html -> ./dist/renderer.bundle.js).
   const candidates = new Set([withoutFragment, decode(withoutFragment)]);
   const baseDir = path.dirname(path.join(repoRoot, fromFile));
 
   for (const candidate of candidates) {
     const target = path.resolve(baseDir, candidate);
     if (targetExists(target)) return true;
+    const relativeTarget = path.relative(repoRoot, target).split(path.sep);
+    if (relativeTarget.some((segment) => SKIP_DIRS.has(segment))) return true;
 
     if (kind === "module") {
       for (const ext of MODULE_EXT) {
