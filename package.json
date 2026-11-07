@@ -1,0 +1,16 @@
+{
+  "name": "api-projects",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small JavaScript apps built on free public APIs, plus Hammock, git-ofrenda and Kodama.",
+  "license": "MIT",
+  "author": "Aniruddha Adak (https://github.com/aniruddhaadak80)",
+  "homepage": "https://aniruddhaadak80.github.io/API_projects/",
+  "repository": { "type": "git", "url": "git+https://github.com/aniruddhaadak80/API_projects.git" },
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "npx --yes serve .",
+    "test": "node --test test/*.test.js",
+    "check:links": "node .github/scripts/check-links.mjs"
+  }
+}

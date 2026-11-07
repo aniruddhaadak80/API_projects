@@ -2,6 +2,8 @@
 
 A tiny tree spirit that lives on your desk and breathes with you.
 
+![Kodama's bonsai scene (UI preview rendered with simulated signals)](docs/preview.jpg)
+
 Kodama watches your webcam through the [Presage SmartSpectra SDK](https://smartspectra.presagetech.com/docs) and turns live human signals into a little world:
 
 | Signal (SmartSpectra) | What Kodama does |

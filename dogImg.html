@@ -66,21 +66,27 @@
       const dogImg = document.getElementById("dog-img");
 
       //function to generate random dog image
-      let generateDogImage = async () => {
-        let apiurl = await fetch("https://random.dog/woof.json");
-        let result = await apiurl.json();
-
-        //display image inside img tag
-        dogImg.src = result.url;
-
-        //console.log(result);
+      // dog.ceo always returns a JPEG (random.dog sometimes returns .mp4/.webm,
+      // which an <img> can't show).
+      const generateDogImage = async () => {
+        try {
+          const res = await fetch("https://dog.ceo/api/breeds/image/random");
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const result = await res.json();
+          const url = new URL(result.message);
+          if (url.protocol === "https:" && url.hostname === "images.dog.ceo") {
+            dogImg.src = url.href;
+          }
+        } catch (err) {
+          console.error("dog:", err);
+        }
       };
 
       //generate A dog image when User click on button
       getDogBtn.addEventListener("click", generateDogImage);
 
       //Random Dog Image after Specific Interval(here 9 seconds)
-      setInterval(generateDogImage, 9000);
+      setInterval(() => { if (!document.hidden) generateDogImage(); }, 9000);
 
       //generateDogImage();
     </script>
