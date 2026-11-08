@@ -16,7 +16,7 @@
     "@smartspectra/node-sdk": "^3.4.0"
   },
   "devDependencies": {
-    "@napi-rs/canvas": "^0.1.65",
+    "@napi-rs/canvas": "^1.1.0",
     "electron": "^45.2.2",
     "esbuild": "^0.28.2"
   }
